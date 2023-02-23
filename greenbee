@@ -1,0 +1,488 @@
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/cypherdh/VanisUILIB/main/.gitignore'))()
+
+local Window = library:CreateWindow("GreenBEE", "MOBILE", 10044538000)
+
+lplayer = game:GetService("Players").LocalPlayer
+ 
+lplayer.CharacterAdded:Connect(function(character)
+    spin = false
+    flying = false
+end)
+local BaseDropOwner
+local BaseDropType
+ 
+-- anti kick
+
+if getrawmetatable and hookfunction then
+
+    local mt = getrawmetatable(game)
+    local old = mt.__namecall
+    local oldfunc
+    
+    oldfunc = hookfunction(Instance.new("Player").Kick, function(self, ...)
+    return wait(9e9)
+    end)
+    
+    setreadonly(mt, false)
+    
+    mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+    if method:lower() == "kick" then
+      return wait(9e9)
+    end
+    return old(self, unpack(args))
+    end)
+    
+    if game.ReplicatedStorage.Interaction:FindFirstChild("Ban") then
+      game.ReplicatedStorage.Interaction.Ban:Destroy()
+    end
+    
+    if game.ReplicatedStorage.Transactions:FindFirstChild("AddLog") then
+      game.ReplicatedStorage.Transactions.AddLog:Destroy()
+    end
+    end
+    
+    
+    if game.ReplicatedStorage.Interaction:FindFirstChild("Ban") then
+        game.ReplicatedStorage.Interaction:FindFirstChild("Ban").Name = "PlsNoBanKThx"
+    end
+
+function notify(title,text,duration)
+    game.StarterGui:SetCore("SendNotification", {
+      Title = title; -- the title (ofc)
+      Text = text; -- what the text says (ofc)
+      Icon = ""; -- the image if u want.
+      Duration = duration; -- how long the notification should in secounds
+    })
+end
+
+local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
+local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
+Notification:Notify(
+    {Title = "GreenBEE", Description = "HELLO ! \nWelcome To GreenBEE GUI"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+
+
+
+
+local Night = false
+local Day = false
+local CustomDragger = false
+local Mouse = lplayer:GetMouse()
+
+flying = false
+speedfly = 3
+selection1 = 0
+selection2 = 0
+axeslot = 0
+freeland = nil
+
+
+local Tab = Window:CreateTab("Scripts")
+
+local Page = Tab:CreateFrame("Main")
+
+Button = Page:CreateButton("Keyboard UI", "", function()
+CreateNotification("Title", "", 5 , function()
+end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+end)
+
+Button = Page:CreateButton("Rejoin", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ts:Teleport(game.PlaceId, p)
+end)
+
+
+local Page1 = Tab:CreateFrame("Players")
+Label1 = Page1:CreateLabel("Label")
+Label1:UpdateLabel("Walk Speed")
+
+
+
+Button = Page1:CreateButton("Reset", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    _G.WalkSpeed = 16
+        local run = game:GetService('RunService')
+        local players = game:GetService('Players')
+        if _G.InitWS ~= true then
+            run.Heartbeat:connect(function()
+                players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.WalkSpeed
+            end)
+            _G.InitWS = true
+        end
+        Notification:Notify(
+    {Title = "GreenBEE", Description = "Walk Speed Back to Default"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+Button = Page1:CreateButton("Speed 150", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    _G.WalkSpeed = 150
+        local run = game:GetService('RunService')
+        local players = game:GetService('Players')
+        if _G.InitWS ~= true then
+            run.Heartbeat:connect(function()
+                players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.WalkSpeed
+            end)
+            _G.InitWS = true
+        end
+        Notification:Notify(
+    {Title = "GreenBEE", Description = "Walk Speed Set up to 150"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+    Button = Page1:CreateButton("Speed 300", "", function()
+        CreateNotification("Title", "", 5 , function()
+        end)
+        _G.WalkSpeed = 300
+            local run = game:GetService('RunService')
+            local players = game:GetService('Players')
+            if _G.InitWS ~= true then
+                run.Heartbeat:connect(function()
+                    players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.WalkSpeed
+                end)
+                _G.InitWS = true
+            end
+            Notification:Notify(
+    {Title = "GreenBEE", Description = "Walk Speed Set up to 300"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+        end)
+
+
+
+Label2 = Page1:CreateLabel("Jump Power") ---------------------------------------------------------
+Label2:UpdateLabel("Jump Power")
+
+Button = Page1:CreateButton("Reset", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    Game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Jump PowerBack to Default"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+    end)
+Button = Page1:CreateButton("Power 100", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    Game.Players.LocalPlayer.Character.Humanoid.JumpPower = 100
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Jump Power Set up to 100"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+    end)
+Button = Page1:CreateButton("Power 200", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    Game.Players.LocalPlayer.Character.Humanoid.JumpPower = 200
+    Notification:Notify(
+        {Title = "GreenBEE", Description = "Jump Power Set up to 200"},
+        {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+        {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+    )
+    end)
+Button = Page1:CreateButton("Infinite Jump", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    local InfiniteJumpEnabled = true
+            game:GetService("UserInputService").JumpRequest:connect(function()
+                if InfiniteJumpEnabled then
+                    game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+                end
+            end)
+            game.StarterGui :SetCore( "ChatMakeSystemMessage",  { Text = "[GreenBEE] Enabled Infinite Jump !",
+        Color = Color3.fromRGB( 127, 255, 0 ), Font = Enum.Font.Arial, FontSize = Enum.FontSize.Size24 } )
+end)
+
+
+
+local Page3 = Tab:CreateFrame("Fly")
+Label3 = Page3:CreateLabel("Label")
+Label3:UpdateLabel("Fly")
+
+  
+Button = Page3:CreateButton("Fly", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+ repeat wait() until lplayer and lplayer.Character and lplayer.Character:FindFirstChild('HumanoidRootPart') and lplayer.Character:FindFirstChild('Humanoid')
+    repeat wait() until Mouse
+   
+    local T = lplayer.Character.HumanoidRootPart
+    local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+    local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+    local SPEED = speedget
+   
+    local function fly()
+        flying = true
+        local BG = Instance.new('BodyGyro', T)
+        local BV = Instance.new('BodyVelocity', T)
+        BG.P = 9e4
+        BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        BG.cframe = T.CFrame
+        BV.velocity = Vector3.new(0, 0.1, 0)
+        BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        spawn(function()
+        repeat wait()
+        lplayer.Character.Humanoid.PlatformStand = true
+        if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+        SPEED = 50
+        elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+        SPEED = 0
+        end
+        if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+        BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+        lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+        elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+        BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+        else
+        BV.velocity = Vector3.new(0, 0.1, 0)
+        end
+        BG.cframe = workspace.CurrentCamera.CoordinateFrame
+                until not flying
+                CONTROL = {F = 0, B = 0, L = 0, R = 0}
+                lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+                SPEED = 0
+                BG:destroy()
+                BV:destroy()
+                lplayer.Character.Humanoid.PlatformStand = false
+            end)
+        end
+    Mouse.KeyDown:connect(function(KEY)
+        if KEY:lower() == 'w' then
+            CONTROL.F = speedfly
+        elseif KEY:lower() == 's' then
+            CONTROL.B = -speedfly
+        elseif KEY:lower() == 'a' then
+            CONTROL.L = -speedfly
+        elseif KEY:lower() == 'd' then
+            CONTROL.R = speedfly
+        end
+    end)
+    Mouse.KeyUp:connect(function(KEY)
+        if KEY:lower() == 'w' then
+            CONTROL.F = 0
+        elseif KEY:lower() == 's' then
+            CONTROL.B = 0
+        elseif KEY:lower() == 'a' then
+            CONTROL.L = 0
+        elseif KEY:lower() == 'd' then
+            CONTROL.R = 0
+        end
+    end)
+    fly()
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "FLY Enabled"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+Button = Page3:CreateButton("Unfly", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    flying = false
+    lplayer.Character.Humanoid.PlatformStand = false
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "FLY Disabled"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+
+
+local Page4 = Tab:CreateFrame("World")
+Label4 = Page4:CreateLabel("Label")
+Label4:UpdateLabel("Time")
+
+game.Lighting.Changed:connect(function()
+	if Day then
+	game.Lighting.TimeOfDay = "12:00:00"
+elseif Night then
+	game.Lighting.TimeOfDay = "24:00:00"
+	
+end
+end)
+
+Button = Page4:CreateButton("Always Day", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    Day = true
+    Night = false
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Always 12:00 PM"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+Button = Page4:CreateButton("Always Night", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    Day = False
+    Night = true
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Always 12:00 AM"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+    end)
+
+Label4v1 = Page4:CreateLabel("Label")
+Label4v1:UpdateLabel("Others")
+
+Button = Page4:CreateButton("No Fog", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    game.Lighting.Changed:connect(function()
+        game.Lighting.FogStart = 1000000
+        game.Lighting.FogEnd = 786543
+        end)
+        Notification:Notify(
+    {Title = "GreenBEE", Description = "NO FOG?"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+    end)
+
+Button = Page4:CreateButton("HD Graphics", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    loadstring(game:HttpGet('https://pastebin.com/raw/kLYp8nzn'))()
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Better Graphics ! nice, good for taking pictures"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+local Page5 = Tab:CreateFrame("Land")
+Label5 = Page5:CreateLabel("Label")
+
+Button = Page5:CreateButton("Free Land", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    for i,v in next, game:GetService("Workspace").Properties:GetChildren() do
+        if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(v,v.OriginSquare.Position)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.OriginSquare.CFrame + Vector3.new(0,2,0)
+            break
+        end
+    end
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Bought Free Land for you :)"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+Button = Page5:CreateButton("Max Land", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    for s,d in pairs(workspace.Properties:GetChildren()) do 
+        if d:FindFirstChild("Owner") and d:FindFirstChild("OriginSquare") and d.Owner.Value == game.Players.LocalPlayer then
+            local PlotPos = d.OriginSquare.Position
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40, PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40, PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z - 80))
+        end
+        end
+        notify("MaxLAND","",5)
+        Notification:Notify(
+    {Title = "GreenBEE", Description = "I Bought all the Plot for you :) MAXLAND"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+Button = Page5:CreateButton("Sell Sign", "", function()
+    CreateNotification("Title", "", 5 , function()
+    end)
+    for i,v in next, game:GetService("Workspace").PlayerModels:GetChildren() do
+        if v:FindFirstChild("Owner") and v.Owner.Value == game.Players.LocalPlayer then
+            if v:FindFirstChild("ItemName") and v.ItemName.Value == "PropertySoldSign" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Main.CFrame.p) + Vector3.new(0,0,2)
+                game:GetService("ReplicatedStorage").Interaction.ClientInteracted:FireServer(v,"Take down sold sign")
+                for i = 1,30 do
+                    game:GetService("ReplicatedStorage").Interaction.ClientIsDragging:FireServer(v)
+                    v.Main.CFrame = CFrame.new(314.54, -0.5, 86.823)
+                    task.wait()
+                end
+            end
+        end
+    end 
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Let me take your Sign"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    wait(0.5)
+    Notification:Notify(
+    {Title = "GreenBEE", Description = "Eyyy ! We got some money ! :D"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)})
+    end)
+
+local Page6 = Tab:CreateFrame("Dupe")
+Label6 = Page6:CreateLabel("Dupe")
+Label6:UpdateLabel("Coming Soon !")
+
+
+
+
+
+
+wait(2)
+Notification:Notify(
+    {Title = "GreenBEE", Description = "Sorry, i don't have a lot of features"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+wait(3)
+Notification:Notify(
+    {Title = "GreenBEE", Description = "Um... but you can still use me :D"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+wait(3)
+Notification:Notify(
+    {Title = "GreenBEE", Description = "and ummmm..."},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
+wait(2)
+Notification:Notify(
+    {Title = "GreenBEE", Description = "ENJOY ! :D"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"},
+    {Image = "http://www.roblox.com/asset/?id=6023426923", ImageColor = Color3.fromRGB(127, 255, 0)}
+)
