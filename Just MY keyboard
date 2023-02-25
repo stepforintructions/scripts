@@ -1,0 +1,95 @@
+
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+
+local PhantomForcesWindow = Library:NewWindow("LT2 Scripts Key")
+
+local N=game:GetService("VirtualInputManager")
+
+
+
+
+
+
+local a1 = PhantomForcesWindow:NewSection("Show/Hide UI")
+
+a1:CreateButton("RightShift", function()
+N:SendKeyEvent(true,"RightShift",false,game)
+end)
+a1:CreateButton("RightControl", function()
+N:SendKeyEvent(true,"RightControl",false,game)
+end)
+a1:CreateButton("RightAlt", function()
+N:SendKeyEvent(true,"RightAlt",false,game)
+end)
+
+
+
+
+local KillingCheats = PhantomForcesWindow:NewSection("WASD")
+KillingCheats:CreateButton("W", function()
+N:SendKeyEvent(true,"W",false,game)
+wait(Howlong)
+N:SendKeyEvent(false,"W",false,game)
+end)
+KillingCheats:CreateButton("A", function()
+N:SendKeyEvent(true,"A",false,game)
+wait(Howlong)
+N:SendKeyEvent(false,"A",false,game)
+end)
+KillingCheats:CreateButton("S", function()
+N:SendKeyEvent(true,"S",false,game)
+wait(Howlong)
+N:SendKeyEvent(false,"S",false,game)
+end)
+KillingCheats:CreateButton("D", function()
+N:SendKeyEvent(true,"D",false,game)
+wait(Howlong)
+N:SendKeyEvent(false,"D",false,game)
+end)
+KillingCheats:CreateButton("Shift", function()
+N:SendKeyEvent(true,"LeftShift",false,game)
+wait(1)
+N:SendKeyEvent(false,"LeftShift",false,game)
+end)
+KillingCheats:CreateButton("Ctrl", function()
+N:SendKeyEvent(true,"LeftControl",false,game)
+end)
+
+
+
+
+local a3 = PhantomForcesWindow:NewSection("Others")
+a3:CreateButton("BackSpace", function()
+N:SendKeyEvent(true,"Backspace",false,game)
+end)
+
+a3:CreateButton("Q", function()
+N:SendKeyEvent(true,"Q",false,game)
+wait(Howlong)
+N:SendKeyEvent(false,"Q",false,game)
+end)
+
+a3:CreateButton("F", function()
+N:SendKeyEvent(true,"F",false,game)
+wait(Howlong)
+N:SendKeyEvent(false,"F",false,game)
+end)
+
+a3:CreateButton("L", function()
+N:SendKeyEvent(true,"L",false,game)
+wait(Howlong)
+N:SendKeyEvent(false,"L",false,game)
+end)
+
+a3:CreateButton("+", function()
+N:SendKeyEvent(true,"KeypadPlus",false,game)
+end)
+
+a3:CreateButton("Enter / Return", function()
+N:SendKeyEvent(true,"Return",false,game)
+end)
+
+
+N:SendKeyEvent(true,"RightShift",false,game)
+N:SendKeyEvent(true,"RightControl",false,game)
+N:SendKeyEvent(true,"RightAlt",false,game)
